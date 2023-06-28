@@ -14,15 +14,10 @@ export default function App() {
     const [unassigned, setUnassigned] = React.useState([]);
 
     const handleSubmit = values => {
-        const arrayAll = values.positionsAll.split('\n');
-        const arraySelected = values.positionsSelected.split('\n');
+        const arrayAll = values.positionsAll.trim().split('\n');
+        const arraySelected = values.positionsSelected.trim().split('\n');
         const all = arrayAll.map(el => el.trim());
         const selected = arraySelected.map(el => el.trim());
-        // setForm({
-        //     ...form,
-        //     positionsAll: all,
-        //     positionsSelected: selected
-        // });
         setPositionsAll(all);
         setPositionsSelected(selected)
     }
@@ -157,9 +152,7 @@ export default function App() {
                         {unassignedBlock}
                     </div>
                 }
-
             </div>
         </div>
-
     );
 }
