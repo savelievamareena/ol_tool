@@ -1,6 +1,6 @@
-import {Field, Form} from 'react-final-form'
+import {Field, Form} from 'react-final-form';
 import './App.css';
-import React from "react"
+import React from "react";
 
 export default function App() {
     const [positionsAll, setPositionsAll] = React.useState([]);
@@ -42,7 +42,7 @@ export default function App() {
         array.forEach(positionAsString => {
             let match = true;
             searchStringAsArray.forEach(searchWord => {
-                const regex = new RegExp(`\\b${searchWord}\\b`, 'i');
+                const regex = new RegExp(`\\b${searchWord}s?\\b`, 'i');
                 if(!regex.test(positionAsString)) {
                     match = false;
                 }
