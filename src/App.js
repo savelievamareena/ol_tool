@@ -5,31 +5,18 @@ import React from "react";
 export default function App() {
     const [positionsAll, setPositionsAll] = React.useState([]);
     const [positionsSelected, setPositionsSelected] = React.useState([]);
-    // const [form, setForm] = React.useState({
-    //     positionsAll: '',
-    //     positionsSelected: '',
-    // });
 
     const [allGroups, setAllGroups] = React.useState([]);
     const [unassigned, setUnassigned] = React.useState([]);
 
-    const handleSubmit = values => {
-        const arrayAll = values.positionsAll.trim().split('\n');
-        const arraySelected = values.positionsSelected.trim().split('\n');
-        const all = arrayAll.map(el => el.trim());
-        const selected = arraySelected.map(el => el.trim());
-        setPositionsAll(all);
-        setPositionsSelected(selected)
-    }
-
-    // const handleChange = (event) => {
-    //     console.log("changed")
-    //
-    //     setForm({
-    //         ...form,
-    //         [event.target.name]: event.target.value.split('\n'),
-    //     });
-    // };
+    const handleChange = (event) => {
+        if(event.target.name === "positionsAll") {
+            setPositionsAll(typeof event.target.value === 'string' ? event.target.value.trim().split('\n') : []);
+        }
+        if(event.target.name === "positionsSelected") {
+            setPositionsSelected(typeof event.target.value === 'string' ? event.target.value.trim().split('\n') : []);
+        }
+    };
 
     function findWordsInArray(positionToSearch, array) {
         let result = [];
@@ -109,31 +96,43 @@ export default function App() {
 
     const MyForm = () => (
         <Form
-            onSubmit={handleSubmit}
-            render={({handleSubmit}) => {
-                return <form onSubmit={handleSubmit} className="contentBlock">
+            onSubmit={values => {console.log(values)}}
+            render={({handleSubmit: ffSubmitHandler}) => {
+                return <form onSubmit={ffSubmitHandler} className="contentBlock">
                     <div className="input-block">
                         <Field
                             name="positionsAll"
-                            render={({ input}) => (
+                            render={(fieldRenderProps) => (
                                 <div>
                                     <label>Positions All</label><br/>
-                                    <textarea {...input} style={{ height: '400px', width: '300px' }} />
+                                    <textarea style={{height: '400px', width: '300px'}}
+                                              onChange={function (e) {
+                                                  handleChange(e);
+                                                  fieldRenderProps.input.onChange(e);
+                                              }}
+                                              value={fieldRenderProps.input.value}
+                                              name={fieldRenderProps.input.name}
+                                    />
                                 </div>
                             )}
                         />
                         <Field
                             name="positionsSelected"
-                            render={({ input, value}) => (
+                            render={(fieldRenderProps) => (
                                 <div>
                                     <label>Positions Selected</label><br/>
-                                    <textarea {...input} {...value} style={{ height: '400px', width: '300px' }} />
+                                    <textarea style={{height: '400px', width: '300px'}}
+                                              onChange={function (e) {
+                                                  handleChange(e);
+                                                  fieldRenderProps.input.onChange(e);
+                                              }}
+                                              value={fieldRenderProps.input.value}
+                                              name={fieldRenderProps.input.name}
+                                    />
                                 </div>
                             )}
                         />
                     </div>
-
-                    <button type="submit" className="submit-button">Submit</button>
                 </form>
             }}
         />
