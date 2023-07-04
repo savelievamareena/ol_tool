@@ -27,12 +27,6 @@ form {
     gap: 20px;
 }
 
-.resultsBlock {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 .input-block {
     display: flex;
     justify-content: space-between;
@@ -52,4 +46,10 @@ form {
     padding: 10px;
     margin: 10px;
     min-width: 200px;
+}
+
+.colsWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
